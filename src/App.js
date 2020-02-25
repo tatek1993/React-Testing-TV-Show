@@ -11,25 +11,40 @@ import {fetchShow} from './api/fetchShow';
 
 export default function App() {
   const [show, setShow] = useState(null);
-  const [seasons, setSeasons] = useState(null);
+  const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
-  const episodes = () => 
+  const episodes = (() => 
   {
       if(seasons === true) {
     return seasons[selectedSeason]
   } else {
     return [];
-  }};
+  }})();
  
     console.log('seasons', seasons);
 
+    // useEffect(() => {
+    //   const fetchShow = () => {
+    //     axios
+    //       .get(
+    //         "https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"
+    //       )
+    //       .then(res => {
+    //         setShow(res.data);
+    //         setSeasons(formatSeasons(res.data._embedded.episodes));
+    //       });
+    //   };
+    //   fetchShow();
+    // }, []);
+
+    
   useEffect(() => {
     fetchShow()
       .then(res => {
 
         setShow(res.data);
         setSeasons(formatSeasons(res.data._embedded.episodes));
-                console.log('fetchShow .then', res.data._embedded.episodes);
+        console.log('fetchShow .then', res.data._embedded.episodes);
         
         console.log('fetchShow .then', formatSeasons(res.data._embedded.episodes));
       })
