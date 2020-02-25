@@ -34,10 +34,10 @@ export default function App() {
   useEffect(() => {
     fetchShow()
       .then(res => {
-
+        console.log('fetchShow .then', res);
         setShow(res.data);
         setSeasons(formatSeasons(res.data._embedded.episodes));
-        console.log('fetchShow .then', res);
+       
         
         console.log('fetchShow .then', formatSeasons(res.data._embedded.episodes));
       })
@@ -47,11 +47,11 @@ export default function App() {
     
   }, []);
 
-  
+
   const handleSelect = e => {
     setSelectedSeason(e.value);
   };
-
+console.log('show', show);
   if (!show) {
     return <h2>Fetching data...</h2>;
   }
@@ -66,6 +66,7 @@ export default function App() {
         onChange={handleSelect}
         value={selectedSeason || "Select a season"}
         placeholder="Select an option"
+        data-testid="seasons-test"
       />
       <Episodes episodes={episodes} />
     </div>
