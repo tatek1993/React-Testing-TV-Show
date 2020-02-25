@@ -13,14 +13,25 @@ export default function App() {
   const [show, setShow] = useState(null);
   const [seasons, setSeasons] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState("");
-  const episodes = seasons[selectedSeason] || [];
+  const episodes = () => 
+  {
+      if(seasons === true) {
+    return seasons[selectedSeason]
+  } else {
+    return [];
+  }};
+ 
+    console.log('seasons', seasons);
 
   useEffect(() => {
     fetchShow()
       .then(res => {
-        console.log('fetchShow .then', res);
+
         setShow(res.data);
-        setSeasons(res.data._embedded.episodes);
+        setSeasons(formatSeasons(res.data._embedded.episodes));
+                console.log('fetchShow .then', res.data._embedded.episodes);
+        
+        console.log('fetchShow .then', formatSeasons(res.data._embedded.episodes));
       })
       .catch(err => {
         return err;
@@ -28,6 +39,7 @@ export default function App() {
     
   }, []);
 
+  
   const handleSelect = e => {
     setSelectedSeason(e.value);
   };
