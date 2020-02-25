@@ -13,14 +13,7 @@ export default function App() {
   const [show, setShow] = useState(null);
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
-  const episodes = (() => 
-  {
-      if(seasons === true) {
-    return seasons[selectedSeason]
-  } else {
-    return [];
-  }})();
- 
+  const episodes = seasons[selectedSeason] || [];
     console.log('seasons', seasons);
 
     // useEffect(() => {
